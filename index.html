@@ -1,46 +1,60 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fondo Kiconex</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Kiconex Login Background</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <div class="login-bg">
-    <div class="layer beams"></div>
-    <div class="layer blobs">
-      <span style="--x:10%; --y:20%; --s:52vmin; --d:34s;"></span>
-      <span style="--x:70%; --y:10%; --s:46vmin; --d:28s;"></span>
-      <span style="--x:20%; --y:70%; --s:58vmin; --d:40s;"></span>
-    </div>
-    <svg class="layer hex" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- Degradado + ruido -->
+    <div class="layer gradient"></div>
+    <div class="layer grain"></div>
+
+    <!-- PCB: pistas y nodos -->
+    <svg class="layer pcb" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
-        <pattern id="hexgrid" width="60" height="52" patternUnits="userSpaceOnUse" patternTransform="">
-          <polygon points="30,0 60,15 60,37 30,52 0,37 0,15" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
-        </pattern>
-        <linearGradient id="kxstroke" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="trace" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stop-color="#7bc9ce"/><stop offset="100%" stop-color="#658eb9"/>
         </linearGradient>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+          <feGaussianBlur stdDeviation="2" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
-      <rect width="1200" height="800" fill="url(#hexgrid)"/>
-      <g fill="none" stroke="url(#kxstroke)" stroke-width="3" stroke-linecap="round" filter="url(#glow)" opacity=".7">
-        <path class="trace t1" d="M-100,200 C300,50 900,350 1300,180"/>
-        <path class="trace t2" d="M-120,560 C260,720 860,420 1320,640"/>
-        <path class="trace t3" d="M-80,380 C220,220 740,260 1280,360"/>
+      <!-- pistas -->
+      <g fill="none" stroke="url(#trace)" stroke-width="2" stroke-linecap="round" filter="url(#glow)" opacity=".75">
+        <path class="trace" d="M40 140 H260 Q300 140 320 180 V260 Q320 300 360 300 H540"/>
+        <path class="trace" d="M80 520 H300 Q340 520 360 560 V640 Q360 680 400 680 H620"/>
+        <path class="trace" d="M200 300 H420 Q460 300 480 340 V420 Q480 460 520 460 H820"/>
+        <path class="trace" d="M180 700 H420 Q460 700 480 740 H780"/>
+      </g>
+      <!-- nodos -->
+      <g class="nodes" fill="#fff" opacity=".9" filter="url(#glow)">
+        <circle cx="260" cy="140" r="3"/><circle cx="360" cy="300" r="3"/>
+        <circle cx="300" cy="520" r="3"/><circle cx="480" cy="460" r="3"/>
+        <circle cx="420" cy="700" r="3"/><circle cx="780" cy="700" r="3"/>
       </g>
     </svg>
-    <div class="layer particles">
-      <i></i><i></i><i></i><i></i><i></i>
+
+    <!-- Anillos tipo dial/encoder -->
+    <div class="layer rings">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
     </div>
-    <main class="login-card">
-      <h1>kiAnalytics</h1>
-      <p>Acceso</p>
-    </main>
+
+    <!-- Brackets móviles tipo UI de configuración -->
+    <div class="layer brackets">
+      <span class="br b1"></span>
+      <span class="br b2"></span>
+      <span class="br b3"></span>
+    </div>
+
+    <!-- Contenedor para tu formulario (vacío, sin textos) -->
+    <main class="login-card"></main>
   </div>
 </body>
 </html>
