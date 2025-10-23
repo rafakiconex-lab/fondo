@@ -85,4 +85,3 @@ body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-s
 @media (prefers-reduced-motion:reduce){
   .gradient,.grain,.trace,.nodes circle,.ring,.br{animation:none}
 }
-
