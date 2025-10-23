@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fondo Kiconex</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="login-bg">
+    <div class="layer beams"></div>
+    <div class="layer blobs">
+      <span style="--x:10%; --y:20%; --s:52vmin; --d:34s;"></span>
+      <span style="--x:70%; --y:10%; --s:46vmin; --d:28s;"></span>
+      <span style="--x:20%; --y:70%; --s:58vmin; --d:40s;"></span>
+    </div>
+    <svg class="layer hex" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <pattern id="hexgrid" width="60" height="52" patternUnits="userSpaceOnUse" patternTransform="">
+          <polygon points="30,0 60,15 60,37 30,52 0,37 0,15" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+        </pattern>
+        <linearGradient id="kxstroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7bc9ce"/><stop offset="100%" stop-color="#658eb9"/>
+        </linearGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <rect width="1200" height="800" fill="url(#hexgrid)"/>
+      <g fill="none" stroke="url(#kxstroke)" stroke-width="3" stroke-linecap="round" filter="url(#glow)" opacity=".7">
+        <path class="trace t1" d="M-100,200 C300,50 900,350 1300,180"/>
+        <path class="trace t2" d="M-120,560 C260,720 860,420 1320,640"/>
+        <path class="trace t3" d="M-80,380 C220,220 740,260 1280,360"/>
+      </g>
+    </svg>
+    <div class="layer particles">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <main class="login-card">
+      <h1>kiAnalytics</h1>
+      <p>Acceso</p>
+    </main>
+  </div>
+</body>
+</html>
