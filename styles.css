@@ -1,46 +1,88 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fondo Kiconex</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="login-bg">
-    <div class="layer beams"></div>
-    <div class="layer blobs">
-      <span style="--x:10%; --y:20%; --s:52vmin; --d:34s;"></span>
-      <span style="--x:70%; --y:10%; --s:46vmin; --d:28s;"></span>
-      <span style="--x:20%; --y:70%; --s:58vmin; --d:40s;"></span>
-    </div>
-    <svg class="layer hex" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <pattern id="hexgrid" width="60" height="52" patternUnits="userSpaceOnUse" patternTransform="">
-          <polygon points="30,0 60,15 60,37 30,52 0,37 0,15" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
-        </pattern>
-        <linearGradient id="kxstroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#7bc9ce"/><stop offset="100%" stop-color="#658eb9"/>
-        </linearGradient>
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <rect width="1200" height="800" fill="url(#hexgrid)"/>
-      <g fill="none" stroke="url(#kxstroke)" stroke-width="3" stroke-linecap="round" filter="url(#glow)" opacity=".7">
-        <path class="trace t1" d="M-100,200 C300,50 900,350 1300,180"/>
-        <path class="trace t2" d="M-120,560 C260,720 860,420 1320,640"/>
-        <path class="trace t3" d="M-80,380 C220,220 740,260 1280,360"/>
-      </g>
-    </svg>
-    <div class="layer particles">
-      <i></i><i></i><i></i><i></i><i></i>
-    </div>
-    <main class="login-card">
-      <h1>kiAnalytics</h1>
-      <p>Acceso</p>
-    </main>
-  </div>
-</body>
-</html>
+/* styles.css */
+:root{
+  --a:#658eb9;
+  --b:#7bc9ce;
+  --white:#fff;
+  --bg1:#081424;
+  --bg2:#0d2036;
+  --bg3:#0a2a36;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#000;color:var(--white)}
+
+.login-bg{position:relative;min-height:100vh;overflow:hidden;isolation:isolate}
+.layer{position:absolute;inset:0;pointer-events:none}
+
+/* Degradado principal */
+.gradient{
+  background:
+    radial-gradient(1000px 700px at 85% 20%, color-mix(in oklab,var(--b) 35%,#000 0%) 0%, transparent 65%),
+    radial-gradient(900px 600px at 15% 80%, color-mix(in oklab,var(--a) 35%,#000 0%) 0%, transparent 65%),
+    linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+  animation:bg-pan 24s ease-in-out infinite alternate;
+}
+@keyframes bg-pan{
+  0%{transform:scale(1.02) translate3d(-1%,-1%,0)}
+  100%{transform:scale(1.02) translate3d(1%,1%,0)}
+}
+
+/* Textura suave */
+.grain{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 .06 .12 .06 0 0 0'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.25;mix-blend-mode:overlay;animation:grainShift 1.5s steps(2,end) infinite
+}
+@keyframes grainShift{to{transform:translate3d(-2%,1%,0)}}
+
+/* PCB animado */
+.pcb{z-index:2;opacity:.8}
+.trace{stroke-dasharray:14 14;animation:flow 7s linear infinite}
+.trace:nth-child(2){animation-duration:9s}
+.trace:nth-child(3){animation-duration:6s}
+.trace:nth-child(4){animation-duration:11s}
+@keyframes flow{to{stroke-dashoffset:-560}}
+.nodes circle{animation:pulse 2.4s ease-in-out infinite}
+.nodes circle:nth-child(odd){animation-duration:3s}
+@keyframes pulse{0%,100%{r:3;opacity:.7}50%{r:5;opacity:1}}
+
+/* Anillos tipo dial */
+.rings{z-index:3;display:grid;place-items:center}
+.ring{
+  position:absolute;border-radius:50%;
+  inset:0;margin:auto;pointer-events:none;mix-blend-mode:screen;opacity:.6;
+  --g1:conic-gradient(from 0deg, transparent 0 20%, var(--b) 20% 22%, transparent 22% 48%, var(--a) 48% 50%, transparent 50% 100%);
+  --g2:conic-gradient(from 45deg, transparent 0 60%, var(--a) 60% 62%, transparent 62% 100%);
+  mask:radial-gradient(circle at center, transparent 42%, #000 43%);
+  background:var(--g1),var(--g2);
+  animation:spin 18s linear infinite;
+}
+.r1{width:70vmin;height:70vmin;animation-duration:26s}
+.r2{width:52vmin;height:52vmin;animation-direction:reverse;animation-duration:18s;mask:radial-gradient(circle at center, transparent 58%, #000 59%)}
+.r3{width:32vmin;height:32vmin;animation-duration:12s;mask:radial-gradient(circle at center, transparent 68%, #000 69%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Brackets tipo panel de configuración */
+.brackets{z-index:4}
+.br{
+  position:absolute;width:180px;height:120px;border:2px solid rgba(255,255,255,.18);
+  border-radius:12px;backdrop-filter:blur(2px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+  animation:float 10s ease-in-out infinite;mix-blend-mode:overlay
+}
+.b1{left:8%;top:16%;animation-duration:11s;border-color:rgba(123,201,206,.28)}
+.b2{right:10%;top:20%;animation-duration:13s;border-color:rgba(101,142,185,.28)}
+.b3{left:18%;bottom:12%;animation-duration:12s}
+@keyframes float{0%{transform:translateY(-8px)}50%{transform:translateY(8px)}100%{transform:translateY(-8px)}}
+
+/* Tarjeta del login: vacía, para que insertes tu formulario */
+.login-card{
+  position:relative;z-index:6;width:min(480px,92vw);
+  margin:14vh auto 8vh;padding:0; /* sin textos */
+  background:transparent;border:0;box-shadow:none;min-height:0
+}
+
+/* Preferencia de movimiento reducido */
+@media (prefers-reduced-motion:reduce){
+  .gradient,.grain,.trace,.nodes circle,.ring,.br{animation:none}
+}
+
